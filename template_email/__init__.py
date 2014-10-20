@@ -16,6 +16,7 @@ class TemplateEmail(EmailMultiAlternatives):
     def __init__(self, *args, **kwargs):
         context = kwargs.pop('context', self.context)
         template = kwargs.pop('template', self.template)
+        self.footer = kwargs.pop('footer', '')
         super(TemplateEmail, self).__init__(*args, **kwargs)
         self.template = template
 
@@ -40,7 +41,7 @@ class TemplateEmail(EmailMultiAlternatives):
         if subject != '':
             self.subject = subject
         if body != '':
-            self.body = body
+            self.body = body + self.footer
         if html != '':
             self.html = html
 
